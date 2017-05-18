@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GitHub WebApp</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">GitHub WebApp</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container" ng-controller="myCtrl">
+        <form class="form-user">
+            <h2 class="form-user-heading">GitHub Deatils</h2>
+            <label for="inputUser">User Name</label>
+            <input type="text" ng-model="username" id="inputUser" class="form-control" placeholder="User Name" required>
+            <br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="getGitInfo()">Get Data</button>
+        </form>
+
+
+        <div ng-show="userNotFound">
+            <h2>User information not found</h2>
+        </div>
+        <div ng-show="display">
+            <img src="{{avatar}}">
+            <h3>List of Followers:</h3>
+            <ul ng-repeat="follower in followers">
+                <li>
+                    <a href="{{follower.html_url}}" target="_blank">
+                        <button class="btn btn-primary">{{follower.login}}</button>
+                    </a>
+                </li>
+            </ul>
+            <h3>List of Following:</h3>
+            <ul ng-repeat="follow in following">
+                <li>
+                    <a href="{{follow.html_url}}" target="_blank">
+                        <button class="btn btn-primary">{{follow.login}}</button>
+                    </a>
+                </li>
+            </ul>
+            <h3>Created Date:</h3>
+            <p>{{created}}</p>
+            <h3 ng-hide="reposFound">No repos!</h3>
+            <div ng-show="reposFound">
+                <h3>List of Repositories:</h3>
+                <ul ng-repeat="repo in repos">
+                    <li>
+                        <a href="{{repo.html_url}}" target="_blank">
+                            <button class="btn btn-primary">{{repo.name}}</button>
+                        </a>
+                    </li>
+                </ul>
+                <h3>No of repositories: <strong>{{repos.length}}</strong></h3>
+            </div>
+        </div>
+    </div>
+    <!-- /container -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</body>
+
+</html>
